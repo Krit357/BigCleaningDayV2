@@ -1,0 +1,68 @@
+.first-cleaning-office {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  top: -40px;
+  left: -75px;
+  z-index: -100;
+}
+
+.main-cleaning-office {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+}
+
+.cleaning-office {
+  text-align: center;
+  font-style: bold;
+  font-size: 36px;
+}
+
+.cleaning-office-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  /* bg-slate-200 rounded-md p-2 mt-4 */
+  border-radius: 8px;
+  border: none;
+  z-index: 999;
+  margin-top: 20px;
+  padding: 8px;
+}
+
+.cleaning-office-board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 96vw;
+  font-size: 16px;
+}
+
+.cleaning-office-duty {
+  text-align: center;
+}
+
+/* bg-gray-300 m-5 p-2 rounded-md */
+.cleaning-office-task {
+  background: #f9f9f9;
+  border: 1px solid #e7e4e4;
+  border-radius: 10px;
+  margin-bottom: 14px;
+  width: 50%;
+}
+
+.cleaning-office-letter {
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: rgb(18, 14, 109);
+}

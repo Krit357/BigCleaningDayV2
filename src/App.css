@@ -1,0 +1,39 @@
+.nav-button {
+  position: fixed;
+  top: 10;
+  left: 10;
+  z-index: 100;
+}
+aside {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100vh;
+  background: #333;
+  color: white;
+  overflow: auto;
+  transition: transform 0.3s;
+}
+
+aside.close {
+  transform: translateX(-100%);
+}
+
+aside.open {
+  transform: translateX(0);
+}
+
+aside nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+aside nav li {
+  margin: 1rem 0;
+}
+
+aside nav a {
+  color: white;
+  text-decoration: none;
+}

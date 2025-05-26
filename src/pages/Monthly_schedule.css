@@ -1,0 +1,153 @@
+.monthly-button {
+  display: flex;
+  justify-content: center;
+}
+
+.monthly-main-box {
+  position: relative;
+  left: 50px;
+}
+
+.schedule_print {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  background-color: #eee;
+  border: 1px solid #dedcdc;
+  cursor: pointer;
+}
+
+.monthly-main-box {
+  display: flex;
+  flex-direction: column;
+}
+.monthly-main-box.open {
+  width: 85vw;
+}
+
+.monthly-first-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.employ-name {
+  display: flex;
+  margin: 5px;
+  font-size: 1rem;
+}
+.employ-cell-name {
+  font-size: 1.5rem;
+}
+
+.monthly-second-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: 80px;
+  gap: 10px;
+}
+
+.calendar-grid {
+  width: 100%;
+  box-sizing: border-box; /* include padding/border in width */
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 80px);
+  gap: 0.5rem; /* shrink gap if cells too large */
+  /* remove overflow hidden so all columns are visible */
+}
+
+/* header row */
+.calendar-header {
+  font-weight: bold;
+  text-align: center;
+  padding: 0.5rem 0;
+  background: #f0f0f0;
+}
+
+/* date cells */
+.calendar-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  border: 2px solid #eee;
+}
+
+.calendar-cell.blank {
+  background: #fafafa;
+}
+
+.calendar-cell.holiday {
+  font-size: 16px;
+  background: red; /* light red/pink background */
+  color: white; /* dark red text */
+}
+
+/* (optional) style the “Holiday” label */
+.holiday-text {
+  font-weight: bold;
+  text-align: center;
+  padding: 0.25rem 0;
+}
+
+.monthly-calendar-wrapper-box {
+  display: flex;
+  gap: 25px;
+}
+
+@page {
+  size: A4 portrait; /* or “A4 landscape” if you prefer */
+  margin: 20mm; /* adjust as needed */
+}
+
+@media print {
+  /* 1) hide everything by default */
+  body * {
+    visibility: hidden;
+  }
+
+  /* 2) show the main calendar wrapper and its children */
+  .monthly-calendar-wrapper,
+  .monthly-calendar-wrapper * {
+    visibility: visible;
+  }
+
+  /* 3) hide the print button */
+  .schedule_print {
+    display: none;
+  }
+
+  .monthly-calendar-wrapper {
+    visibility: hidden;
+  }
+
+  /* 4) make the wrapper fill the printable page */
+  .monthly-calendar-wrapper {
+    position: fixed;
+    top: 0; /* flush to top */
+    left: 0; /* flush to left */
+    right: 0; /* flush to right */
+    bottom: 0; /* flush to bottom */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: white;
+  }
+
+  /* 5) force the grid to span full width */
+  .calendar-grid {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+}

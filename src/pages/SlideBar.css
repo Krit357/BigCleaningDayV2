@@ -1,0 +1,85 @@
+/* wrapper flexbox */
+.slide-nav {
+  display: flex;
+  height: 100vh;
+}
+
+/* the always-visible “hamburger” handle */
+.toggle-btn {
+  position: fixed;
+  top: 1rem;
+  z-index: 1100;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: left 0.3s ease-in-out;
+}
+
+.close-btn {
+  display: flex;
+  background: none;
+  border: none;
+  background: #f3f4f5;
+  font-size: 1.5rem;
+}
+
+/* handle sits at left=0 when closed, slides to 250px when open */
+.toggle-btn.close {
+  left: 0;
+}
+.toggle-btn.open {
+  left: 250px; /* same width as sidebar */
+}
+
+/* the sidebar itself */
+aside {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100vh;
+  background: #f3f4f5;
+  overflow-y: auto;
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+/* slide fully off-screen when closed */
+aside.close {
+  transform: translateX(-100%);
+}
+
+/* in place when open */
+aside.open {
+  transform: translateX(0);
+}
+
+/* your nav styles */
+aside ul {
+  list-style: none;
+  padding: 2rem 0 0;
+}
+aside li {
+  margin: 0.5rem 0;
+}
+aside a {
+  display: block;
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  color: inherit;
+}
+aside a:hover {
+  background: rgba(52, 199, 236, 0.1);
+}
+
+/* main content */
+.main {
+  transition: margin-left 0.3s ease-in-out;
+}
+.main.has-sidebar {
+  margin-left: 0px;
+}
+.main.full-width {
+  margin-left: 100px;
+}
