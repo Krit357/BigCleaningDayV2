@@ -1,0 +1,11 @@
+.test-qr {
+  text-align: center;
+}
+
+.test-qr.sidebar-open {
+  width: 85vw;
+}
+
+.test-qr.sidebar-close {
+  width: 100vw;
+}

@@ -26,6 +26,11 @@ const SlideBar = () => {
           <li>
             <Link to="monthly-schedule">Monthly Schedule</Link>
           </li>
+          <li>
+            <Link to="qr-Generator" isOpen={isOpen}>
+              qr-Generator
+            </Link>
+          </li>
         </ul>
       </aside>
 
