@@ -5,6 +5,7 @@ import { useOutletContext } from "react-router-dom";
 import html2canvas from "html2canvas";
 
 const QrCodeGenerator = () => {
+  const inputRef = useRef(null);
   const [input, setInput] = useState("");
   const [qrUrl, setQrUrl] = useState("");
   const [display, setDisplay] = useState("");
@@ -66,6 +67,10 @@ const QrCodeGenerator = () => {
     generate(DEFAULT_URL);
   }, []);
 
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
   return (
     <div className={`test-qr ${isOpen ? "sidebar-open" : "sidebar-close"}`}>
       <h2>Qr Code Generator</h2>
@@ -85,6 +90,7 @@ const QrCodeGenerator = () => {
       <div className="qr-input">
         <div className="qr-input box">
           <input
+            ref={inputRef}
             className="qr-input-typing"
             placeholder="Link here"
             type="text"
