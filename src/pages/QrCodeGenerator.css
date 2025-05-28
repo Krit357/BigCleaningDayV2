@@ -1,4 +1,8 @@
 .test-qr {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
 }
 
@@ -8,4 +12,51 @@
 
 .test-qr.sidebar-close {
   width: 100vw;
+}
+
+.qr-bg {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 25px 10px;
+  border-radius: 10px;
+  height: 250px;
+  background-color: rgb(59, 56, 56);
+}
+.qr-bg > p {
+  color: white;
+  font-size: xx-large;
+  padding: 0;
+  margin: 0 0 20px;
+}
+.qr-bg > img {
+  background-color: blue;
+  height: 200px;
+  width: 200px;
+}
+
+.qr-btn {
+  height: 50px;
+  margin: 10px 0;
+  width: 250px;
+  border: none;
+  border-radius: 10px;
+}
+
+.qr-input {
+  display: flex;
+}
+
+.qr-input-typing {
+  height: 20px;
+}
+.qr-input-option {
+  height: 25px;
+}
+
+.qr-input.box {
+  display: flex;
+  flex-direction: column;
+  margin: 5px 10px;
 }

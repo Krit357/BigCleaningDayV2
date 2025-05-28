@@ -76,8 +76,8 @@ aside a:hover {
 /* main content */
 .main {
   transition: margin-left 0.3s ease-in-out;
-}
-.main.has-sidebar {
+  .main.has-sidebar {
+  }
   margin-left: 0px;
 }
 .main.full-width {
