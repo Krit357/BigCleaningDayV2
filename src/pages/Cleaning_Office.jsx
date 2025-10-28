@@ -22,27 +22,27 @@ const initialDuties = {
   foodAndShelfCleaning: {
     task: "ตู้เย็นและที่วางจาน",
     requiredPersons: 3,
-    assignedPersons: ["Bella", "Min", "Yok"],
+    assignedPersons: ["Chris", "Sky", "Rose"],
   },
   dusting: {
     task: "ปัดฝุ่น",
     requiredPersons: 1,
-    assignedPersons: ["Chris"],
+    assignedPersons: ["Hut"],
   },
   sweepFloor: {
     task: "กวาดพื่น",
     requiredPersons: 4,
-    assignedPersons: ["Christian", "Moss", "Lucus", "Sky"],
+    assignedPersons: ["Moss", "Yok", "Lucus", "Christian"],
   },
   mopFloor: {
     task: "ถูพื้น",
     requiredPersons: 4,
-    assignedPersons: ["Rose", "Day", "Hut", "Ethan"],
+    assignedPersons: ["Min", "Ethan", "Hut", "Mook"],
   },
   meetingRoom: {
     task: "ห้องประชุม",
     requiredPersons: 1,
-    assignedPersons: ["Mook"],
+    assignedPersons: ["Bella"],
   },
 };
 

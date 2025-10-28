@@ -9,7 +9,7 @@ const Monthly_schedule = () => {
 
   const today = new Date();
   const year = today.getFullYear();
-  const monthIndex = today.getMonth() + 2; // zero-based
+  const monthIndex = today.getMonth() + 1; // zero-based
   const weeks = generateMonthCalendar(year, monthIndex);
 
   return (
