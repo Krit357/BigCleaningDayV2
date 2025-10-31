@@ -7,7 +7,7 @@ const Monthly_schedule = () => {
   // Today's date
   const today = new Date();
   const year = today.getFullYear();
-  const month = today.getMonth() + 1; // 1–12
+  const month = today.getMonth() + 2; // 1–12
 
   // Next month (rollover Dec→Jan)
   const nextMonth = month === 12 ? 1 : month + 1;
@@ -15,7 +15,7 @@ const Monthly_schedule = () => {
 
   // Public holidays map: { "YYYY-M": [day, …] }
   const publicHolidays = {
-    [`${year}-${month}`]: [13, 23], // sample this month
+    [`${year}-${month}`]: [], // sample this month
     [`${nextYear}-${nextMonth}`]: [10, 28], // sample next month
   };
 
