@@ -39,7 +39,7 @@ const Monthly_schedule = () => {
           {weeks.map((week, wi) =>
             // week is an array of 7 slots: [Sun, Mon, Tue, Wed, Thu, Fri, Sat]
             week.slice(1, 6).map((day, di) => {
-              const holidays = [2];
+              const holidays = [];
 
               const cellIndex = wi * 5 + di;
               const isHoliday = day != null && holidays.includes(day);
@@ -69,7 +69,7 @@ const Monthly_schedule = () => {
                   )}
                 </div>
               );
-            })
+            }),
           )}
         </div>
       </div>
