@@ -1,3 +1,11 @@
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+  overflow-y: auto;
+}
+
 .nav-button {
   position: fixed;
   top: 10;

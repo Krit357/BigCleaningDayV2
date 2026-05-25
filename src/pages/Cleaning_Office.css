@@ -2,11 +2,9 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  top: -40px;
-  left: -75px;
-  z-index: -100;
+  width: 100%;
+  min-height: 100vh;
 }
 
 .main-cleaning-office {
@@ -34,6 +32,8 @@
   z-index: 999;
   margin-top: 20px;
   padding: 8px;
+  background-color: red;
+  cursor: pointer;
 }
 
 .cleaning-office-board {
@@ -54,7 +54,8 @@
   background: #f9f9f9;
   border: 1px solid #e7e4e4;
   border-radius: 10px;
-  margin-bottom: 14px;
+  padding: 15px;
+  margin: 8px;
   width: 50%;
 }
 
@@ -70,4 +71,35 @@
 .cleaning-button {
   display: flex;
   gap: 16px;
+}
+
+.cleaning-office-button-box {
+  display: flex;
+  gap: 16px;
+}
+
+.remove-btn {
+  font-size: 12px;
+  width: 15px;
+  height: 15px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cleaning-office-people-list {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.cleaning-office-person {
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
