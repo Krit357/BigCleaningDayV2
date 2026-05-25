@@ -10,7 +10,7 @@ const peoples = [
   "Mook",
   "Rose",
   "Moss",
-  "Bella",
+  "Fah",
   "Lucus",
   "Sky",
   "Hut",
@@ -22,36 +22,38 @@ const initialDuties = {
   foodAndShelfCleaning: {
     task: "ตู้เย็นและที่วางจาน",
     requiredPersons: 3,
-    assignedPersons: ["Chris", "Sky", "Rose"],
+    assignedPersons: ["Christian", "Fah", "Hut"],
   },
   dusting: {
     task: "ปัดฝุ่น",
     requiredPersons: 1,
-    assignedPersons: ["Hut"],
+    assignedPersons: ["Chris"],
   },
   sweepFloor: {
-    task: "กวาดพื่น",
+    task: "กวาดพื้น",
     requiredPersons: 4,
-    assignedPersons: ["Moss", "Yok", "Lucus", "Christian"],
+    assignedPersons: ["Day", "Rose", "Ethan", "Sky"],
   },
   mopFloor: {
     task: "ถูพื้น",
     requiredPersons: 4,
-    assignedPersons: ["Min", "Ethan", "Hut", "Mook"],
+    assignedPersons: ["Yok", "Lucus", "Moss", "Min"],
   },
   meetingRoom: {
     task: "ห้องประชุม",
     requiredPersons: 1,
-    assignedPersons: ["Bella"],
+    assignedPersons: ["Mook"],
   },
 };
 
 function shuffleArray(arr) {
   const a = [...arr];
+
   for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [a[i], a[j]] = [a[j], a[i]];
   }
+
   return a;
 }
 
@@ -60,70 +62,85 @@ export default function Cleaning_Office() {
     const saved = localStorage.getItem("cleaningDuties");
     return saved ? JSON.parse(saved) : initialDuties;
   });
-  const [lastAssignment, setLastAssignment] = useState(() => {
-    const saved = localStorage.getItem("lastAssignment");
-    if (saved) return JSON.parse(saved);
-    // bootstrap lastAssignment from whatever initial duties are
-    return Object.fromEntries(
-      Object.entries(initialDuties).map(([k, v]) => [k, v.assignedPersons])
-    );
-  });
 
-  // Persist on change
   useEffect(() => {
     localStorage.setItem("cleaningDuties", JSON.stringify(duties));
-    localStorage.setItem("lastAssignment", JSON.stringify(lastAssignment));
-  }, [duties, lastAssignment]);
+  }, [duties]);
 
   const assignDuties = () => {
-    // 1) Deep-clone the current duties so we can mutate safely
-    const newDuties = JSON.parse(JSON.stringify(duties));
+    let attempts = 0;
+    let success = false;
+    let newDuties = null;
 
-    // 2) Shuffle the full list of people
-    let available = shuffleArray(peoples);
+    while (!success && attempts < 1000) {
+      attempts++;
 
-    // 3) For each taskKey (including 'sweepFloor'):
-    Object.entries(newDuties).forEach(([taskKey, taskObj]) => {
-      const { requiredPersons, assignedPersons: prevAssigned } = taskObj;
+      const tempDuties = JSON.parse(JSON.stringify(duties));
+      let availablePeople = shuffleArray(peoples);
+      success = true;
 
-      // a) Build a forbidden list *from the previous assignment* of THIS task
-      const forbidden = prevAssigned; // last time’s people for this task
+      for (const [taskKey, taskObj] of Object.entries(tempDuties)) {
+        const { requiredPersons } = taskObj;
 
-      // 1) PRIMARY: exclude forbidden entirely
-      let pick = available
-        .filter((p) => !forbidden.includes(p))
-        .slice(0, requiredPersons);
+        // คนที่อยู่หน้าที่นี้ในรอบก่อน ห้ามอยู่หน้าที่เดิมซ้ำ
+        const previousPeopleInThisTask = duties[taskKey].assignedPersons;
 
-      // 2) FALLBACK: if still short, fill from whatever remains
-      //    (we only exclude those we already just picked, not the forbidden list)
-      if (pick.length < requiredPersons) {
-        const needed = requiredPersons - pick.length;
-        const extras = available
-          .filter((p) => !pick.includes(p))
-          .slice(0, needed);
-        pick = pick.concat(extras);
+        const selectedPeople = availablePeople
+          .filter((person) => !previousPeopleInThisTask.includes(person))
+          .slice(0, requiredPersons);
+
+        // ถ้าเลือกคนไม่พอ แปลว่ารอบนี้ใช้ไม่ได้ ต้องสุ่มใหม่
+        if (selectedPeople.length < requiredPersons) {
+          success = false;
+          break;
+        }
+
+        tempDuties[taskKey].assignedPersons = selectedPeople;
+
+        // เอาคนที่ถูกเลือกแล้วออก เพื่อไม่ให้ไปซ้ำหน้าที่อื่น
+        availablePeople = availablePeople.filter(
+          (person) => !selectedPeople.includes(person),
+        );
       }
 
-      // commit and remove
-      newDuties[taskKey].assignedPersons = pick;
-      available = available.filter((p) => !pick.includes(p));
-    });
+      if (success) {
+        newDuties = tempDuties;
+      }
+    }
 
-    // 4) Push the update into state (and your useEffect will persist it)
+    if (!success) {
+      alert("ไม่สามารถสุ่มโดยไม่ซ้ำหน้าที่เดิมได้ กรุณาลองใหม่");
+      return;
+    }
+
     setDuties(newDuties);
+  };
+
+  const resetDuties = () => {
+    localStorage.removeItem("cleaningDuties");
+    const freshInitialDuties = JSON.parse(JSON.stringify(initialDuties));
+    setDuties(freshInitialDuties);
   };
 
   return (
     <div className="first-cleaning-office">
-      <button className="cleaning-office-button" onClick={assignDuties}>
-        Assign
-      </button>
+      <div className="cleaning-button">
+        <button className="cleaning-office-button" onClick={assignDuties}>
+          Assign
+        </button>
+
+        <button className="cleaning-office-button" onClick={resetDuties}>
+          Reset
+        </button>
+      </div>
 
       <h1 className="cleaning-office">Cleaning Duty Assignment</h1>
+
       <div className="cleaning-office-board">
         {Object.entries(duties).map(([key, { task, assignedPersons }]) => (
           <div key={key} className="cleaning-office-task">
             <h2 className="cleaning-office-duty">{task}</h2>
+
             <p className="cleaning-office-letter">
               <span className="cleaning-office-text">
                 {assignedPersons.join(", ") || "None"}

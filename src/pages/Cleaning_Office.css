@@ -66,3 +66,8 @@
   text-align: center;
   color: rgb(18, 14, 109);
 }
+
+.cleaning-button {
+  display: flex;
+  gap: 16px;
+}
