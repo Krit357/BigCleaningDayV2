@@ -15,7 +15,7 @@ const Monthly_schedule = () => {
 
   // Public holidays map: { "YYYY-M": [day, …] }
   const publicHolidays = {
-    [`${year}-${month}`]: [28, 29], // sample this month
+    [`${year}-${month}`]: [12], // sample this month
     [`${nextYear}-${nextMonth}`]: [1, 2], // sample next month
   };
 
