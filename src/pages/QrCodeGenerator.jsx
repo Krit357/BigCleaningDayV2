@@ -124,7 +124,7 @@ const QrCodeGenerator = () => {
       </div>
 
       <button className="qr-btn" onClick={handleSave}>
-        save QR div as image
+        save QR as image
       </button>
     </div>
   );
