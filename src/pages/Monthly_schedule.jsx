@@ -3,6 +3,8 @@ import { generateMonthCalendar } from "../utils/calendar";
 import employees from "../employee";
 import "./Monthly_schedule.css";
 
+const API_BASE = import.meta.env.DEV ? "http://localhost:3001" : "";
+
 const Monthly_schedule = () => {
   const today = new Date();
 
@@ -20,7 +22,7 @@ const Monthly_schedule = () => {
   const [selectedDate, setSelectedDate] = useState(firstMonthDate);
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/holidays")
+    fetch(`${API_BASE}/api/holidays`)
       .then((res) => {
         if (!res.ok) throw new Error("โหลดวันหยุดไม่สำเร็จ");
         return res.json();
@@ -36,7 +38,7 @@ const Monthly_schedule = () => {
     if (!selectedDate || holidays.includes(selectedDate)) return;
 
     try {
-      const res = await fetch("http://localhost:3001/api/holidays", {
+      const res = await fetch(`${API_BASE}/api/holidays`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ date: selectedDate }),
@@ -54,7 +56,7 @@ const Monthly_schedule = () => {
   const removeHoliday = async (date) => {
     try {
       const res = await fetch(
-        `http://localhost:3001/api/holidays/${encodeURIComponent(date)}`,
+        `${API_BASE}/api/holidays?date=${encodeURIComponent(date)}`,
         { method: "DELETE" },
       );
 

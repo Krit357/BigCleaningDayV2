@@ -101,8 +101,8 @@ async function start() {
     res.status(201).json({ _id: result.insertedId, date });
   });
 
-  app.delete("/api/holidays/:date", async (req, res) => {
-    const result = await holidays.deleteOne({ date: req.params.date });
+  app.delete("/api/holidays", async (req, res) => {
+    const result = await holidays.deleteOne({ date: req.query.date });
 
     if (result.deletedCount === 0) {
       return res.status(404).json({ error: "Holiday not found" });

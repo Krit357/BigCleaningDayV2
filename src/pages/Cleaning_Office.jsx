@@ -1,6 +1,7 @@
 // src/components/Cleaning_Office.jsx
 import React, { useState, useEffect } from "react";
 import "./Cleaning_Office.css";
+const API_BASE = import.meta.env.DEV ? "http://localhost:3001" : "";
 
 const defaultPeoples = [
   "Yok",
@@ -63,7 +64,7 @@ export default function Cleaning_Office() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/cleaning")
+    fetch(`${API_BASE}/api/cleaning`)
       .then((res) => {
         if (!res.ok) throw new Error("โหลดข้อมูลไม่สำเร็จ");
         return res.json();
@@ -77,7 +78,7 @@ export default function Cleaning_Office() {
   }, []);
 
   const saveCleaning = async (nextPeopleList, nextDuties) => {
-    const res = await fetch("http://localhost:3001/api/cleaning", {
+    const res = await fetch(`${API_BASE}/api/cleaning`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
