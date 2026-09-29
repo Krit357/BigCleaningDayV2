@@ -19,8 +19,8 @@ const defaultCleaning = {
   duties: {
     foodAndShelfCleaning: {
       task: "ตู้เย็นและที่วางจาน",
-      requiredPersons: 3,
-      assignedPersons: ["Lucus", "Hut", "Fah"],
+      requiredPersons: 2,
+      assignedPersons: ["Hut", "Fah"],
     },
     dusting: {
       task: "ปัดฝุ่น",
@@ -29,8 +29,8 @@ const defaultCleaning = {
     },
     sweepFloor: {
       task: "กวาดพื้น",
-      requiredPersons: 3,
-      assignedPersons: ["Sky", "Ethan", "Rose"],
+      requiredPersons: 4,
+      assignedPersons: ["Sky", "Ethan", "Rose", "Lucus"],
     },
     mopFloor: {
       task: "ถูพื้น",
