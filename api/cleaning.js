@@ -1,11 +1,54 @@
 // api/cleaning.js
 import { getDb } from "./_db.js";
 
+const defaultCleaning = {
+  peopleList: [
+    "Yok",
+    "Ethan",
+    "Chris",
+    "Mook",
+    "Rose",
+    "Moss",
+    "Fah",
+    "Lucus",
+    "Sky",
+    "Hut",
+    "Christian",
+    "Min",
+  ],
+  duties: {
+    foodAndShelfCleaning: {
+      task: "ตู้เย็นและที่วางจาน",
+      requiredPersons: 3,
+      assignedPersons: ["Lucus", "Hut", "Fah"],
+    },
+    dusting: {
+      task: "ปัดฝุ่น",
+      requiredPersons: 1,
+      assignedPersons: ["Christian"],
+    },
+    sweepFloor: {
+      task: "กวาดพื้น",
+      requiredPersons: 3,
+      assignedPersons: ["Sky", "Ethan", "Rose"],
+    },
+    mopFloor: {
+      task: "ถูพื้น",
+      requiredPersons: 4,
+      assignedPersons: ["Chris", "Yok", "Min", "Mook"],
+    },
+    meetingRoom: {
+      task: "ห้องประชุม",
+      requiredPersons: 1,
+      assignedPersons: ["Moss"],
+    },
+  },
+};
+
 export async function GET() {
   const db = await getDb();
   const saved = await db.collection("cleaning").findOne({ _id: "office" });
 
-  // defaultCleaning ต้องประกาศในไฟล์นี้หรือ import เข้ามา
   return Response.json(
     saved
       ? { peopleList: saved.peopleList, duties: saved.duties }
