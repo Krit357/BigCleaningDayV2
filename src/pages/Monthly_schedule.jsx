@@ -15,29 +15,55 @@ const Monthly_schedule = () => {
   const nextYear = secondDate.getFullYear();
   const nextMonth = secondDate.getMonth() + 1;
 
-  const [holidays, setHolidays] = useState(() => {
-    const saved = localStorage.getItem("scheduleHolidays");
-    return saved ? JSON.parse(saved) : [];
-  });
-
+  const [holidays, setHolidays] = useState([]);
   const firstMonthDate = `${year}-${String(month).padStart(2, "0")}-01`;
   const [selectedDate, setSelectedDate] = useState(firstMonthDate);
 
   useEffect(() => {
-    localStorage.setItem("scheduleHolidays", JSON.stringify(holidays));
-  }, [holidays]);
+    fetch("http://localhost:3001/api/holidays")
+      .then((res) => {
+        if (!res.ok) throw new Error("โหลดวันหยุดไม่สำเร็จ");
+        return res.json();
+      })
+      .then((records) => setHolidays(records.map((item) => item.date)))
+      .catch(console.error);
+  }, []);
 
   const dateKey = (y, m, day) =>
     `${y}-${String(m).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 
-  const addHoliday = () => {
+  const addHoliday = async () => {
     if (!selectedDate || holidays.includes(selectedDate)) return;
-    setHolidays([...holidays, selectedDate]);
-    setSelectedDate(firstMonthDate);
+
+    try {
+      const res = await fetch("http://localhost:3001/api/holidays", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ date: selectedDate }),
+      });
+
+      if (!res.ok) throw new Error("เพิ่มวันหยุดไม่สำเร็จ");
+
+      setHolidays((current) => [...current, selectedDate]);
+      setSelectedDate(firstMonthDate);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const removeHoliday = (date) => {
-    setHolidays(holidays.filter((holiday) => holiday !== date));
+  const removeHoliday = async (date) => {
+    try {
+      const res = await fetch(
+        `http://localhost:3001/api/holidays/${encodeURIComponent(date)}`,
+        { method: "DELETE" },
+      );
+
+      if (!res.ok) throw new Error("ลบวันหยุดไม่สำเร็จ");
+
+      setHolidays((current) => current.filter((holiday) => holiday !== date));
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const thisWeeks = generateMonthCalendar(year, month);
