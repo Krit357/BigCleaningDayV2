@@ -10,7 +10,6 @@ const employees = [
   { id: 10, name: "Yok" },
   { id: 11, name: "Ethan" },
   { id: 12, name: "Chris" },
-  { id: 13, name: "Day" },
   { id: 1, name: "Mook" },
 ];
 

@@ -21,7 +21,7 @@
   align-items: center;
   padding: 25px 10px;
   border-radius: 10px;
-  height: 250px;
+  height: 100%;
   background-color: rgb(59, 56, 56);
 }
 .qr-bg > p {
@@ -34,6 +34,25 @@
   background-color: blue;
   height: 200px;
   width: 200px;
+}
+
+.logo-text-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-text-box > p {
+  font-size: 1.5rem;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+.store-logo-img {
+  height: 30px;
+  margin: 10px;
 }
 
 .qr-btn {
@@ -57,6 +76,7 @@
 
 .qr-input.box {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin: 5px 10px;
 }

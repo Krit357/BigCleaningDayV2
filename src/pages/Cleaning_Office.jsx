@@ -6,7 +6,6 @@ const defaultPeoples = [
   "Yok",
   "Ethan",
   "Chris",
-  "Day",
   "Mook",
   "Rose",
   "Moss",
@@ -22,27 +21,27 @@ const initialDuties = {
   foodAndShelfCleaning: {
     task: "ตู้เย็นและที่วางจาน",
     requiredPersons: 3,
-    assignedPersons: ["Chris", "Sky", "Rose"],
+    assignedPersons: ["Lucus", "Hut", "Fah"],
   },
   dusting: {
     task: "ปัดฝุ่น",
     requiredPersons: 1,
-    assignedPersons: ["Day"],
+    assignedPersons: ["Christian"],
   },
   sweepFloor: {
     task: "กวาดพื้น",
     requiredPersons: 4,
-    assignedPersons: ["Moss", "Yok", "Lucus", "Christian"],
+    assignedPersons: ["Mook", "Sky", "Ethan", "Rose"],
   },
   mopFloor: {
     task: "ถูพื้น",
     requiredPersons: 4,
-    assignedPersons: ["Min", "Ethan", "Hut", "Mook"],
+    assignedPersons: ["Chris", "Day", "Yok", "Min"],
   },
   meetingRoom: {
     task: "ห้องประชุม",
     requiredPersons: 1,
-    assignedPersons: ["Fah"],
+    assignedPersons: ["Moss"],
   },
 };
 
@@ -106,6 +105,16 @@ export default function Cleaning_Office() {
     }
 
     setPeopleList(peopleList.filter((person) => person !== name));
+  };
+
+  const clearAssignments = () => {
+    const clearedDuties = Object.fromEntries(
+      Object.entries(duties).map(([key, duty]) => [
+        key,
+        { ...duty, assignedPersons: [] },
+      ]),
+    );
+    setDuties(clearedDuties);
   };
 
   const assignDuties = () => {
@@ -191,6 +200,9 @@ export default function Cleaning_Office() {
         <button className="cleaning-office-button" onClick={resetPeople}>
           Reset People
         </button>
+        <button className="cleaning-office-button" onClick={clearAssignments}>
+          Clear Assignments
+        </button>
       </div>
 
       <div className="cleaning-office-form">
@@ -201,7 +213,9 @@ export default function Cleaning_Office() {
           onChange={(e) => setNewPersonName(e.target.value)}
         />
 
-        <button onClick={addPerson}>Add Person</button>
+        <button className="cleaning-office-button" onClick={addPerson}>
+          Add Person
+        </button>
       </div>
 
       <div className="cleaning-office-people-list">

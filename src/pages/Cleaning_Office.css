@@ -21,6 +21,13 @@
   font-size: 36px;
 }
 
+.cleaning-office-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
 .cleaning-office-button {
   display: flex;
   justify-content: center;
@@ -32,7 +39,6 @@
   z-index: 999;
   margin-top: 20px;
   padding: 8px;
-
   cursor: pointer;
 }
 

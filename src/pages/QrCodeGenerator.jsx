@@ -74,13 +74,26 @@ const QrCodeGenerator = () => {
   return (
     <div className={`test-qr ${isOpen ? "sidebar-open" : "sidebar-close"}`}>
       <h2>Qr Code Generator</h2>
-      {display && (
-        <p>
-          Generate for: <code>{display}</code>
-        </p>
-      )}
+
       <div className="qr-bg" ref={qrRef}>
-        <p>{phoneType}</p>
+        <span className="logo-text-box">
+          <p>{phoneType}</p>
+          {phoneType === "Android" && (
+            <img
+              className="store-logo-img"
+              src="/googlePlayLogo.svg"
+              alt="Google Play"
+            />
+          )}
+
+          {phoneType === "iOS" && (
+            <img
+              className="store-logo-img"
+              src="/appleStoreLogo.svg"
+              alt="Apple Store"
+            />
+          )}
+        </span>
         <img
           src={qrUrl || DEFAULT_URL}
           alt={qrUrl ? "QR Code" : "Google Logo"}
@@ -97,28 +110,23 @@ const QrCodeGenerator = () => {
             value={input}
             onChange={(e) => setInput(e.target.value)}
           />
+          <div className="qr-input box">
+            <select
+              className="qr-input-option"
+              placeholder="Phone type here"
+              type="option"
+              value={phoneType}
+              onChange={(e) => setPhoneType(e.target.value)}
+            >
+              <option value="" disabled>
+                -- Choose one--
+              </option>
+              <option value="iOS">iOS</option>
+              <option value="Android">Android</option>
+            </select>
+          </div>
           <button className="qr-btn" onClick={handleQr}>
             generate
-          </button>
-        </div>
-
-        <div className="qr-input box">
-          <select
-            className="qr-input-option"
-            placeholder="Phone type here"
-            type="option"
-            value={phoneType}
-            onChange={(e) => setPhoneType(e.target.value)}
-          >
-            <option value="" disabled>
-              -- Choose one--
-            </option>
-            <option value="iOS">iOS</option>
-            <option value="Android">Android</option>
-          </select>
-
-          <button className="qr-btn" onClick={handleTypePhone}>
-            Phone Type
           </button>
         </div>
       </div>
