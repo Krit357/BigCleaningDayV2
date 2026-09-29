@@ -68,8 +68,10 @@
 .calendar-header {
   font-weight: bold;
   text-align: center;
+  align-items: center;
+  border: 2px solid #322a2a;
   padding: 0.5rem 0;
-  background: #f0f0f0;
+  background: #ecc7c7;
 }
 
 /* date cells */
@@ -144,9 +146,4 @@
   }
 
   /* 5) force the grid to span full width */
-  .calendar-grid {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-  }
 }
