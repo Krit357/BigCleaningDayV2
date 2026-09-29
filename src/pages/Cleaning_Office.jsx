@@ -30,13 +30,13 @@ const initialDuties = {
   },
   sweepFloor: {
     task: "กวาดพื้น",
-    requiredPersons: 4,
-    assignedPersons: ["Mook", "Sky", "Ethan", "Rose"],
+    requiredPersons: 3,
+    assignedPersons: ["Sky", "Ethan", "Rose"],
   },
   mopFloor: {
     task: "ถูพื้น",
     requiredPersons: 4,
-    assignedPersons: ["Chris", "Day", "Yok", "Min"],
+    assignedPersons: ["Chris", "Yok", "Min", "Mook"],
   },
   meetingRoom: {
     task: "ห้องประชุม",
@@ -57,44 +57,56 @@ function shuffleArray(arr) {
 }
 
 export default function Cleaning_Office() {
-  const [peopleList, setPeopleList] = useState(() => {
-    const saved = localStorage.getItem("peopleList");
-    return saved ? JSON.parse(saved) : defaultPeoples;
-  });
-
+  const [peopleList, setPeopleList] = useState(defaultPeoples);
+  const [duties, setDuties] = useState(initialDuties);
   const [newPersonName, setNewPersonName] = useState("");
-
-  const [duties, setDuties] = useState(() => {
-    const saved = localStorage.getItem("cleaningDuties");
-    return saved ? JSON.parse(saved) : initialDuties;
-  });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    localStorage.setItem("peopleList", JSON.stringify(peopleList));
-  }, [peopleList]);
+    fetch("http://localhost:3001/api/cleaning")
+      .then((res) => {
+        if (!res.ok) throw new Error("โหลดข้อมูลไม่สำเร็จ");
+        return res.json();
+      })
+      .then((data) => {
+        setPeopleList(data.peopleList);
+        setDuties(data.duties);
+      })
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, []);
 
-  useEffect(() => {
-    localStorage.setItem("cleaningDuties", JSON.stringify(duties));
-  }, [duties]);
+  const saveCleaning = async (nextPeopleList, nextDuties) => {
+    const res = await fetch("http://localhost:3001/api/cleaning", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        peopleList: nextPeopleList,
+        duties: nextDuties,
+      }),
+    });
 
-  const addPerson = () => {
-    const name = newPersonName.trim();
+    if (!res.ok) throw new Error("บันทึกข้อมูลไม่สำเร็จ");
 
-    if (!name) {
-      alert("กรุณาใส่ชื่อ");
-      return;
-    }
-
-    if (peopleList.includes(name)) {
-      alert("มีชื่อนี้อยู่แล้ว");
-      return;
-    }
-
-    setPeopleList([...peopleList, name]);
-    setNewPersonName("");
+    setPeopleList(nextPeopleList);
+    setDuties(nextDuties);
   };
 
-  const removePerson = (name) => {
+  const addPerson = async () => {
+    const name = newPersonName.trim();
+
+    if (!name) return alert("กรุณาใส่ชื่อ");
+    if (peopleList.includes(name)) return alert("มีชื่อนี้อยู่แล้ว");
+
+    try {
+      await saveCleaning([...peopleList, name], duties);
+      setNewPersonName("");
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  const removePerson = async (name) => {
     const isAssigned = Object.values(duties).some((duty) =>
       duty.assignedPersons.includes(name),
     );
@@ -104,20 +116,32 @@ export default function Cleaning_Office() {
       return;
     }
 
-    setPeopleList(peopleList.filter((person) => person !== name));
+    try {
+      await saveCleaning(
+        peopleList.filter((person) => person !== name),
+        duties,
+      );
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
-  const clearAssignments = () => {
+  const clearAssignments = async () => {
     const clearedDuties = Object.fromEntries(
       Object.entries(duties).map(([key, duty]) => [
         key,
         { ...duty, assignedPersons: [] },
       ]),
     );
-    setDuties(clearedDuties);
+
+    try {
+      await saveCleaning(peopleList, clearedDuties);
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
-  const assignDuties = () => {
+  const assignDuties = async () => {
     const totalRequiredPersons = Object.values(duties).reduce(
       (total, duty) => total + duty.requiredPersons,
       0,
@@ -170,20 +194,41 @@ export default function Cleaning_Office() {
       return;
     }
 
-    setDuties(newDuties);
+    try {
+      await saveCleaning(peopleList, newDuties);
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
-  const resetDuties = () => {
-    localStorage.removeItem("cleaningDuties");
-
-    const freshInitialDuties = JSON.parse(JSON.stringify(initialDuties));
-    setDuties(freshInitialDuties);
+  const resetDuties = async () => {
+    try {
+      await saveCleaning(peopleList, JSON.parse(JSON.stringify(initialDuties)));
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
-  const resetPeople = () => {
-    localStorage.removeItem("peopleList");
-    setPeopleList(defaultPeoples);
+  const resetPeople = async () => {
+    const cleanedDuties = Object.fromEntries(
+      Object.entries(duties).map(([key, duty]) => [
+        key,
+        {
+          ...duty,
+          assignedPersons: duty.assignedPersons.filter((name) =>
+            defaultPeoples.includes(name),
+          ),
+        },
+      ]),
+    );
+
+    try {
+      await saveCleaning([...defaultPeoples], cleanedDuties);
+    } catch (error) {
+      alert(error.message);
+    }
   };
+  if (loading) return <div>Loading...</div>;
 
   return (
     <div className="first-cleaning-office">
