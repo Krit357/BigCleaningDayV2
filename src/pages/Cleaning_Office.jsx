@@ -16,6 +16,7 @@ const defaultPeoples = [
   "Hut",
   "Christian",
   "Min",
+  "Song",
 ];
 
 const initialDuties = {
@@ -37,7 +38,7 @@ const initialDuties = {
   mopFloor: {
     task: "ถูพื้น",
     requiredPersons: 5,
-    assignedPersons: ["Rose", "Ethan", "Christian", "Sky"],
+    assignedPersons: ["Rose", "Ethan", "Christian", "Sky", "Song"],
   },
   meetingRoom: {
     task: "ห้องประชุม",
