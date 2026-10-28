@@ -4,7 +4,7 @@ import "./Cleaning_Office.css";
 const API_BASE = import.meta.env.DEV ? "http://localhost:3001" : "";
 
 const defaultPeoples = [
-  "Yok",
+  "Cara",
   "Ethan",
   "Chris",
   "Mook",
@@ -22,27 +22,27 @@ const initialDuties = {
   foodAndShelfCleaning: {
     task: "ตู้เย็นและที่วางจาน",
     requiredPersons: 2,
-    assignedPersons: ["Hut", "Fah"],
+    assignedPersons: ["Lucus", "Moss"],
   },
   dusting: {
     task: "ปัดฝุ่น",
     requiredPersons: 1,
-    assignedPersons: ["Christian"],
+    assignedPersons: ["Min"],
   },
   sweepFloor: {
     task: "กวาดพื้น",
     requiredPersons: 4,
-    assignedPersons: ["Sky", "Ethan", "Rose", "Lucus"],
+    assignedPersons: ["Cara", "Fah", "Mook", "Hut"],
   },
   mopFloor: {
     task: "ถูพื้น",
-    requiredPersons: 4,
-    assignedPersons: ["Chris", "Yok", "Min", "Mook"],
+    requiredPersons: 5,
+    assignedPersons: ["Rose", "Ethan", "Christian", "Sky"],
   },
   meetingRoom: {
     task: "ห้องประชุม",
     requiredPersons: 1,
-    assignedPersons: ["Moss"],
+    assignedPersons: ["Chris"],
   },
 };
 
