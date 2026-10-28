@@ -25,7 +25,7 @@ const defaultCleaning = {
     dusting: {
       task: "ปัดฝุ่น",
       requiredPersons: 1,
-      assignedPersons: ["'Min'"],
+      assignedPersons: ["Min"],
     },
     sweepFloor: {
       task: "กวาดพื้น",
