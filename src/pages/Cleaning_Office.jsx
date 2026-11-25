@@ -6,7 +6,7 @@ const API_BASE = import.meta.env.DEV ? "http://localhost:3001" : "";
 const defaultPeoples = [
   "Cara",
   "Ethan",
-  "Chris",
+  "Noey",
   "Mook",
   "Rose",
   "Moss",
@@ -43,7 +43,7 @@ const initialDuties = {
   meetingRoom: {
     task: "ห้องประชุม",
     requiredPersons: 1,
-    assignedPersons: ["Chris"],
+    assignedPersons: ["Noey"],
   },
 };
 
