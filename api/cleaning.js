@@ -5,7 +5,7 @@ const defaultCleaning = {
   peopleList: [
     "Yok",
     "Ethan",
-    "Chris",
+    "Noey",
     "Mook",
     "Rose",
     "Moss",
@@ -40,7 +40,7 @@ const defaultCleaning = {
     meetingRoom: {
       task: "ห้องประชุม",
       requiredPersons: 1,
-      assignedPersons: ["Chris"],
+      assignedPersons: ["Noey"],
     },
   },
 };
