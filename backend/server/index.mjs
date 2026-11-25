@@ -20,7 +20,7 @@ async function start() {
     peopleList: [
       "Yok",
       "Ethan",
-      "Chris",
+      "Noey",
       "Mook",
       "Rose",
       "Moss",
@@ -50,7 +50,7 @@ async function start() {
       mopFloor: {
         task: "ถูพื้น",
         requiredPersons: 4,
-        assignedPersons: ["Chris", "Yok", "Min", "Mook"],
+        assignedPersons: ["Noey", "Yok", "Min", "Mook"],
       },
       meetingRoom: {
         task: "ห้องประชุม",
