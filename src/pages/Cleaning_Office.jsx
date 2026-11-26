@@ -201,7 +201,6 @@ export default function Cleaning_Office() {
     } catch (error) {
       alert(error.message);
     }
-    console.log(peopleList, newDuties);
   };
 
   const resetDuties = async () => {
